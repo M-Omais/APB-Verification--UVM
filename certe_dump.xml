@@ -1,0 +1,82 @@
+<certe_dump>
+  <instance type=" fifo_test "> 
+     uvm_test_top 
+  
+     <instance type=" fifo_env "> 
+        env 
+  
+        <instance type=" tx_agent "> 
+           agent 
+  
+           <instance type=" tx_driver "> 
+              drv 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 rsp_port 
+              </port> 
+  
+              <port if_type = "uvm_seq_item_pull_port" txn_type = "anonymous"> 
+                 seq_item_port 
+                 <connection>  uvm_test_top.env.agent.sqr.seq_item_export  </connection> 
+              </port> 
+           </instance> 
+  
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              dut_in_tx_port 
+           </port> 
+  
+           <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+              dut_out_tx_port 
+           </port> 
+  
+           <instance type=" tx_monitor "> 
+              mon 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 dut_in_tx_port 
+                 <connection>  uvm_test_top.env.agent.dut_in_tx_port  </connection> 
+                 <connection>  uvm_test_top.env.scoreboard.in_port  </connection> 
+              </port> 
+  
+              <port if_type = "uvm_analysis_port" txn_type = "anonymous"> 
+                 dut_out_tx_port 
+                 <connection>  uvm_test_top.env.agent.dut_out_tx_port  </connection> 
+                 <connection>  uvm_test_top.env.scoreboard.out_port  </connection> 
+              </port> 
+           </instance> 
+  
+  
+           <instance type=" tx_sequencer "> 
+              sqr 
+  
+              <export if_type = "uvm_analysis_export" txn_type = "anonymous"> 
+                 rsp_export 
+                 <connection>  uvm_test_top.env.agent.sqr.sqr_rsp_analysis_fifo.analysis_export  </connection> 
+              </export> 
+  
+              <imp if_type = "uvm_seq_item_pull_imp" txn_type = "anonymous"> 
+                 seq_item_export 
+              </imp> 
+           </instance> 
+  
+        </instance> 
+  
+  
+        <instance type=" tx_scoreboard "> 
+           scoreboard 
+  
+           <imp if_type = "uvm_analysis_imp_expected" txn_type = "anonymous"> 
+              in_port 
+           </imp> 
+  
+           <imp if_type = "uvm_analysis_imp_actual" txn_type = "anonymous"> 
+              out_port 
+           </imp> 
+        </instance> 
+  
+     </instance> 
+  
+  </instance> 
+  
+  </certe_dump>
